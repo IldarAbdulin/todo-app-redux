@@ -1,0 +1,80 @@
+$VeryLightGray: hsl(0, 0%, 98%);
+$VeryLightGrayishBlue: hsl(236, 33%, 92%);
+$LightGrayishBlue: hsl(233, 11%, 84%);
+$DarkGrayishBlue: hsl(236, 9%, 61%);
+$VeryDarkGrayishBlue: hsl(235, 19%, 35%);
+
+//checkbox
+$BrightBlue: hsl(220, 98%, 61%);
+
+.lightTheme {
+  background: $LightGrayishBlue;
+  height: 100vh;
+  &__head {
+    background: url('../../images/bg-desktop-light.jpg');
+    height: 33vh;
+    background-size: cover;
+    background-position: center;
+  }
+  &__todolist {
+    position: absolute;
+    top: 28%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    .form {
+      background: $VeryLightGray;
+      padding: 10px 20px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      &__checkbox {
+        position: relative;
+        padding-left: 20px;
+        margin-bottom: 20px;
+        span {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 19px;
+          width: 19px;
+          background: transparent;
+          border-radius: 50%;
+          border: 1px solid $BrightBlue;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: 0.2s;
+        }
+        &:hover input ~ span {
+          border: 1px dashed $BrightBlue;
+          background: $VeryLightGray;
+        }
+        input {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 17px;
+          width: 17px;
+          z-index: 1;
+          cursor: pointer;
+          opacity: 0;
+          &:checked ~ span {
+            background: linear-gradient(
+              hsl(192, 100%, 67%),
+              hsl(280, 87%, 65%)
+            );
+            background-size: cover;
+          }
+        }
+      }
+      &__myInput {
+        font-size: 14px;
+        color: $VeryDarkGrayishBlue;
+        &::placeholder {
+          color: $DarkGrayishBlue;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+$LightGrayishBlue: hsl(234, 39%, 85%);
+.change {
+  &__icon {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+  }
+  &__head {
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h1 {
+      text-transform: uppercase;
+      letter-spacing: 5px;
+      font-size: 30px;
+      font-weight: 300;
+      color: $LightGrayishBlue;
+    }
+  }
+}
