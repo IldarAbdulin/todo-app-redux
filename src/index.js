@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.scss'
 import { Provider } from 'react-redux';
 import { App } from './App';
-import { store } from './store';
+import { cofigureStore } from './store';
+const store = cofigureStore()
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

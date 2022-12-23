@@ -1,0 +1,41 @@
+$BrightBlue: hsl(220, 98%, 61%);
+$VeryDarkBlue: hsla(0, 0%, 54%, 0.137);
+
+.form__checkbox {
+  position: relative;
+  display: block;
+  padding-left: 20px;
+  margin-bottom: 20px;
+  span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 19px;
+    width: 19px;
+    background: transparent;
+    border-radius: 50%;
+    border: 1px solid $BrightBlue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+  }
+  &:hover input ~ span {
+    border: 1px dashed $BrightBlue;
+    background: $VeryDarkBlue;
+  }
+  input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 17px;
+    width: 17px;
+    z-index: 1;
+    cursor: pointer;
+    opacity: 0;
+    &:checked ~ span {
+      background: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+      background-size: cover;
+    }
+  }
+}

@@ -5,7 +5,7 @@ export const TodosChangeTheme = ({ icon, changeTheme }) => {
   return (
     <div className={styles.change}>
       <div className={styles.change__head}>
-        <h1>Todo</h1>
+        <h1 style={{ cursor: 'pointer' }}>Todo</h1>
         <img
           onClick={changeTheme}
           className={styles.change__icon}
