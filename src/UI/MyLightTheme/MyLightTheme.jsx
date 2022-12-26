@@ -4,17 +4,22 @@ import styles from './LightTheme.module.scss';
 import { MyInput } from '../MyInput/MyInput';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { selectAllTodos } from '../../store/todos/todos-selector';
-import { addTodo, removeTodo } from '../../store/todos/todos-actions';
+import {
+  addTodo,
+  removeTodo,
+  toggleTodo,
+} from '../../store/todos/todos-actions';
+import { selectActiveFilter } from '../../store/filter/filter-selector';
+import { selectVisibleTodos } from '../../store/todos/todos-selector';
 
 //icons
 import moon from '../../images/icon-moon.svg';
-import { MyCheckBox } from '../MyCheckBox/MyCheckBox';
 import { MyTodoList } from '../MyTodoList/MyTodoList';
 import { MyFilter } from '../MyFilterList/MyFilter';
 
 export const MyLightTheme = ({ changeTheme }) => {
-  const todos = useSelector(selectAllTodos);
+  const activeFilter = useSelector(selectActiveFilter);
+  const todos = useSelector((state) => selectVisibleTodos(state, activeFilter));
   const dispatch = useDispatch();
   const onSubmit = (e) => {
     e.preventDefault();
@@ -31,7 +36,6 @@ export const MyLightTheme = ({ changeTheme }) => {
         <TodosChangeTheme icon={moon} changeTheme={changeTheme} />
         <br />
         <form className={styles.form} onSubmit={onSubmit}>
-          <MyCheckBox />
           <MyInput
             className={styles.form__myInput}
             name="title"
@@ -39,18 +43,29 @@ export const MyLightTheme = ({ changeTheme }) => {
             placeholder="Введите текст задачи..."
           />
         </form>
-        <MyTodoList
-          backgroundColor={styles.form__checkbox}
-          text={styles.text}
-          stylesTodos={styles.todos}
-          stylesRemoveTodo={styles.removeTodo}
-          removeIcon={styles.removeIcon}
-          todos={todos}
-          removeTodo={(e) => dispatch(removeTodo(e))}
-        />
-        {todos.length === 0 ? null : (
-          <MyFilter btnList={styles.btnList} insideList={styles.insideList} />
-        )}
+        <div className={styles.scrollbar}>
+          <MyTodoList
+            backgroundColor={styles.form__checkbox}
+            text={styles.text}
+            stylesTodos={styles.todos}
+            stylesRemoveTodo={styles.removeTodo}
+            removeIcon={styles.removeIcon}
+            todos={todos}
+            onToggle={(e) => dispatch(toggleTodo(e))}
+            removeTodo={(e) => dispatch(removeTodo(e))}
+          />
+          {todos.length === 0 ? (
+            <>
+              <h1 className={styles.zeroTodos}>Задачи отсутсвуют :(</h1>
+              <MyFilter
+                btnList={styles.btnList}
+                insideList={styles.insideList}
+              />
+            </>
+          ) : (
+            <MyFilter btnList={styles.btnList} insideList={styles.insideList} />
+          )}
+        </div>
       </div>
     </div>
   );

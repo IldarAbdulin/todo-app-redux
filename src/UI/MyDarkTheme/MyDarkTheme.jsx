@@ -6,21 +6,26 @@ import { MyInput } from '../MyInput/MyInput';
 import styles from './DarkTheme.module.scss';
 
 import { selectVisibleTodos } from '../../store/todos/todos-selector';
-import { addTodo, removeTodo } from '../../store/todos/todos-actions';
+import {
+  addTodo,
+  removeTodo,
+  toggleTodo,
+} from '../../store/todos/todos-actions';
 
 //icon
 import sun from '../../images/icon-sun.svg';
 import { MyTodoList } from '../MyTodoList/MyTodoList';
-import { MyCheckBox } from '../MyCheckBox/MyCheckBox';
 import { MyFilter } from '../MyFilterList/MyFilter';
 import { selectActiveFilter } from '../../store/filter/filter-selector';
-import { setFilter } from '../../store/filter/filter-action';
 
 export const MyDarkTheme = ({ changeTheme }) => {
+  //selectors
   const activeFilter = useSelector(selectActiveFilter);
   const todos = useSelector((state) => selectVisibleTodos(state, activeFilter));
+  //dispatch
   const dispatch = useDispatch();
-  const onSubmit = (e) => {
+  //func
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (e.target.title.value === '') {
       return alert('Строка не может быть пустой');
@@ -34,8 +39,7 @@ export const MyDarkTheme = ({ changeTheme }) => {
       <div className={styles.darkTheme__todolist}>
         <TodosChangeTheme icon={sun} changeTheme={changeTheme} />
         <br />
-        <form className={styles.form} onSubmit={onSubmit}>
-          <MyCheckBox />
+        <form className={styles.form} onSubmit={handleSubmit}>
           <MyInput
             className={styles.form__myInput}
             name="title"
@@ -43,22 +47,29 @@ export const MyDarkTheme = ({ changeTheme }) => {
             placeholder="Введите текст задачи..."
           />
         </form>
-        <MyTodoList
-          backgroundColor={styles.form__checkbox}
-          text={styles.text}
-          stylesTodos={styles.todos}
-          stylesRemoveTodo={styles.removeTodo}
-          removeIcon={styles.removeIcon}
-          todos={todos}
-          removeTodo={(e) => dispatch(removeTodo(e))}
-        />
-        {todos.length === 0 ? null : (
-          <MyFilter
-            setFilter={(active) => dispatch(setFilter(active))}
-            btnList={styles.btnList}
-            insideList={styles.insideList}
+        <div className={styles.scrollbar}>
+          <MyTodoList
+            backgroundColor={styles.form__checkbox}
+            text={styles.text}
+            stylesTodos={styles.todos}
+            stylesRemoveTodo={styles.removeTodo}
+            removeIcon={styles.removeIcon}
+            todos={todos}
+            onToggle={(e) => dispatch(toggleTodo(e))}
+            removeTodo={(e) => dispatch(removeTodo(e))}
           />
-        )}
+          {todos.length === 0 ? (
+            <>
+              <h1 className={styles.zeroTodos}>Задачи отсутсвуют :(</h1>
+              <MyFilter
+                btnList={styles.btnList}
+                insideList={styles.insideList}
+              />
+            </>
+          ) : (
+            <MyFilter btnList={styles.btnList} insideList={styles.insideList} />
+          )}
+        </div>
       </div>
     </div>
   );

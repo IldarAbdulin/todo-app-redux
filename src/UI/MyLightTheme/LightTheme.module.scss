@@ -25,7 +25,7 @@ $VeryDarkGrayishBlue: hsl(235, 19%, 35%);
       align-items: center;
       gap: 10px;
       &__myInput {
-        width: 230px;
+        width: 260px;
         font-size: 14px;
         color: $VeryDarkGrayishBlue;
         &::placeholder {
@@ -88,6 +88,41 @@ $VeryDarkGrayishBlue: hsl(235, 19%, 35%);
           color: $VeryDarkGrayishBlue;
         }
       }
+    }
+  }
+  .zeroTodos {
+    background: $VeryLightGray;
+    padding: 7px 20px;
+    border-radius: 4px;
+    width: 300px;
+    text-align: center;
+    border-bottom: 1px solid $VeryDarkGrayishBlue;
+    font-weight: 300;
+    font-size: 20px;
+    color: $DarkGrayishBlue;
+  }
+  .scrollbar {
+    height: 65vh;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #cad0e2;
+      background-image: -webkit-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.25) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.25) 50%,
+        rgba(255, 255, 255, 0.25) 75%,
+        transparent 75%,
+        transparent
+      );
+    }
+    &::-webkit-scrollbar-track {
+      -webkit-box-shadow: 5px 5px 5px -5px rgba(36, 34, 80, 0.2) inset;
+      background-color: #f9f9fd;
     }
   }
 }

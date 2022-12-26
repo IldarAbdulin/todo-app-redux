@@ -10,13 +10,17 @@ export const MyTodoList = ({
   stylesTodos,
   stylesRemoveTodo,
   removeIcon,
+  onToggle,
 }) => {
   return (
     <div className={styles.all__todos}>
       {todos.map((todo) => (
-        <div key={todo.title} className={backgroundColor}>
+        <div key={todo.id} className={backgroundColor}>
           <div>
-            <MyCheckBox />
+            <MyCheckBox
+              onChange={() => onToggle(todo.id)}
+              checked={todo.completed}
+            />
           </div>
           <div className={text}>
             <div className={stylesTodos}>{todo.title}</div>

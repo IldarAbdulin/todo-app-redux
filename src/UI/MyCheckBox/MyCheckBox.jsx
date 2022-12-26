@@ -7,13 +7,13 @@ export const MyCheckBox = ({ checked, onChange }) => {
   return (
     <div className="form__checkbox">
       <MyInput
-        onChange={onChange}
+        onChange={(e) => onChange(e)}
         checked={checked}
         onClick={() => setActiveBox(!activeBox)}
         type="checkbox"
       />
       <span>
-        {activeBox && (
+        {checked && (
           <svg xmlns="http://www.w3.org/2000/svg" width="11" height="9">
             <path
               fill="none"

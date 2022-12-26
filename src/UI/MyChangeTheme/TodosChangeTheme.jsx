@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './ChangeTheme.module.scss';
 
-export const TodosChangeTheme = ({ icon, changeTheme }) => {
+export const TodosChangeTheme = ({ icon, changeTheme, link }) => {
   return (
     <div className={styles.change}>
       <div className={styles.change__head}>
