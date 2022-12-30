@@ -1,16 +1,32 @@
 import { createStore } from "redux";
-import {persistStore, persistReducer} from 'redux-persist'
-import storage from "redux-persist/lib/storage";
+// import {persistStore, persistReducer} from 'redux-persist'
+// import storage from "redux-persist/lib/storage";
+import {loadState, saveState} from './localStorage'
 
 import { reducer } from './root-reducer';
 
-const persistConfig = {
-  key: 'root',
-  storage
+// const persistConfig = {
+//   key: 'root',
+//   storage
+// }
+// const persistedReducer = persistReducer(persistConfig, reducer)
+// export const store = createStore(
+//   persistedReducer,
+//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+// )
+// export const persistor = persistStore(store)
+
+export const cofigureStore = () => {
+  const persistedState = loadState()
+  const store = createStore(
+    reducer,
+    persistedState,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  );
+  store.subscribe(() => {
+    saveState({
+      todos: store.getState().todos
+    })
+  })
+  return store
 }
-const persistedReducer = persistReducer(persistConfig, reducer)
-export const store = createStore(
-  persistedReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-)
-export const persistor = persistStore(store)
